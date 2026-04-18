@@ -1,4 +1,4 @@
-<h1 align="center">openpix</h1>
+<h1 align="center">Bulk Image Downloader</h1>
 
 <p align="center"><em>Open-licensed images from Wikimedia Commons and Openverse.</em></p>
 
@@ -17,8 +17,6 @@ It works without API keys, saves to `~/Pictures/openpix` by default, and is mean
 - Good for wallpapers, moodboards, demos, and quick image gathering
 - Works nicely both interactively and in scripts
 
-> Note: the project was previously developed under the working name `pixglean`.
-
 ## Install
 
 ```bash
@@ -29,10 +27,9 @@ Or download a prebuilt binary from [GitHub Releases](https://github.com/panakour
 
 Release builds target:
 
-- macOS
-- Linux
-- Windows
-- `amd64` and `arm64`
+- macOS (`arm64`)
+- Linux (`amd64`)
+- Windows (`amd64`)
 
 ## Quick Start
 
