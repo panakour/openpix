@@ -1,0 +1,11 @@
+---
+version: "2"
+linters:
+  default: standard
+  enable:
+    - wrapcheck
+    - copyloopvar
+  settings:
+    wrapcheck:
+      ignore-package-globs:
+        - github.com/panakour/openpix/internal/*

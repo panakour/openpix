@@ -1,0 +1,6 @@
+/openpix
+/dist/
+.DS_Store
+.idea/
+*.test
+*.out
