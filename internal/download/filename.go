@@ -1,6 +1,7 @@
 package download
 
 import (
+	"cmp"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
@@ -21,13 +22,8 @@ var slugNonWord = regexp.MustCompile(`[^\w\-]+`)
 // Filename builds <source>-<sha256(URL)[:8]>-<slug>.<ext> — deterministic so
 // reruns skip what's already on disk.
 func Filename(img provider.Image) string {
-	source := img.Source
-	if source == "" {
-		source = "image"
-	}
-
 	return fmt.Sprintf("%s-%s-%s.%s",
-		source,
+		cmp.Or(img.Source, "image"),
 		shortHash(img.URL),
 		slug(img.Title, img.ID),
 		extensionFor(img),
@@ -41,10 +37,7 @@ func shortHash(s string) string {
 }
 
 func slug(title, fallback string) string {
-	base := title
-	if base == "" {
-		base = fallback
-	}
+	base := cmp.Or(title, fallback)
 
 	base = strings.TrimPrefix(base, "File:")
 
@@ -58,23 +51,11 @@ func slug(title, fallback string) string {
 		cleaned = strings.TrimRight(cleaned[:maxSlugLen], "_")
 	}
 
-	if cleaned == "" {
-		return "image"
-	}
-
-	return cleaned
+	return cmp.Or(cleaned, "image")
 }
 
 func extensionFor(img provider.Image) string {
-	if ext := extFromURL(img.URL); ext != "" {
-		return ext
-	}
-
-	if ext := extFromMime(img.Mime); ext != "" {
-		return ext
-	}
-
-	return "jpg"
+	return cmp.Or(extFromURL(img.URL), extFromMime(img.Mime), "jpg")
 }
 
 func extFromURL(rawURL string) string {
