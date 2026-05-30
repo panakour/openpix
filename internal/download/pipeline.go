@@ -98,7 +98,7 @@ func (p *Pipeline) fetchOne(ctx context.Context, img provider.Image) Event {
 			Image:  img,
 			Status: StatusFailed,
 			Path:   dest,
-			Err:    fmt.Errorf("destination exists and is not a regular file"),
+			Err:    errors.New("destination exists and is not a regular file"),
 		}
 	case err == nil && info.Size() > 0:
 		return Event{Image: img, Status: StatusSkipped, Path: dest, Bytes: info.Size()}
